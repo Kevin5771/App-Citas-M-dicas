@@ -5,7 +5,7 @@ from tkinter import messagebox
 def editarDatoPaciente(persona, idPersona):
     conexion = ConexionDB()
     sql = f"""UPDATE Persona SET nombre = '{persona.nombre}', apellido = '{persona.apellido}',
-            dpi = '{persona.dpi}', fechaCita = '{persona.fechacita}', edad = {persona.edad}, 
+            dpi = '{persona.dpi}', fechaCita = '{persona.fechaCita}', edad = {persona.edad}, 
             correo = '{persona.cOrreo}', telefono = '{persona.telefono}', activo = 1 WHERE idPersona = {idPersona}"""
     try:
         conexion.cursor.execute(sql)

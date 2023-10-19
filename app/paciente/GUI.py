@@ -2,7 +2,7 @@ from calendar import LocaleHTMLCalendar
 from os import P_DETACH
 import tkinter as tk
 from tkinter import *
-from tkinter import Button, ttk, scrolledtext, Toplevel, LabelFrame
+from tkinter import Button, ttk, scrolledtext, Toplevel, LabelFrame, StringVar
 from tkinter import messagebox
 from modelo.pacienteDao import Persona, guardarDatoPaciente, listarCondicion, listar, editarDatoPaciente, eliminarPaciente
 from modelo.historiaMedicaDao import historiaMedica, guardarHistoria, listarHistoria, eliminarHistoria, editarHistoria
@@ -111,19 +111,19 @@ class Frame(tk.Frame):
 
         #BUSCADOR
         #LABEL BUSCADOR
-        self.lblBuscarDPI = tk.Label(self, text='Buscar DPI: ')
-        self.lblBuscarDPI.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
-        self.lblBuscarDPI.grid(column=3, row=0, padx=10, pady=5)
+        self.lblBuscarFechaCita = tk.Label(self, text='Buscar Fechas: ')
+        self.lblBuscarFechaCita.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblBuscarFechaCita.grid(column=3, row=0, padx=10, pady=5)
 
         self.lblBuscarApellido = tk.Label(self, text='Buscar Apellido: ')
         self.lblBuscarApellido.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
         self.lblBuscarApellido.grid(column=3, row=1, padx=10, pady=5)
 
         #ENTRYS BUSCADOR
-        self.svBuscarDPI = tk.StringVar()
-        self.entryBuscarDPI = tk.Entry(self, textvariable=self.svBuscarDPI)
-        self.entryBuscarDPI.config(width=20, font=('ARIAL',15))
-        self.entryBuscarDPI.grid(column=4, row=0, padx=10, pady=5, columnspan=2)
+        self.svBuscarFechaCita = tk.StringVar()
+        self.entryBuscarFechaCita = tk.Entry(self, textvariable=self.svBuscarFechaCita)
+        self.entryBuscarFechaCita.config(width=20, font=('ARIAL',15))
+        self.entryBuscarFechaCita.grid(column=4, row=0, padx=10, pady=5, columnspan=2)
 
         self.svBuscarApellido = tk.StringVar()
         self.entryBuscarApellido = tk.Entry(self, textvariable=self.svBuscarApellido)
@@ -148,42 +148,43 @@ class Frame(tk.Frame):
         self.btnCalendario.grid(column=3,row=4, padx=10, pady=5, columnspan=1)
         
 # Necesita Correcciones
+        self.svFechaCita = StringVar()
+
     def vistaCalendario(self):
         self.topCalendario = Toplevel()
         self.topCalendario.title("FECHA CITA")
-        self.topCalendario.resizable(0,0)
-        self.topCalendario.iconbitmap('img/clinica.ico')
+        self.topCalendario.resizable(0, 0)
+        self.topCalendario.iconbitmap('./app/img/clinica.ico')
         self.topCalendario.config(bg='#CDD8FF')
 
         self.svCalendario = StringVar()
-        self.calendar = tc.Calendar(self.topCalendario, selectmode='day', year=2023, month=1, day=1, locale ='es_US', bg='#777777', fg='#FFFFFF', headersbackground='#B6DDFE', textvariable=self.svCalendario, cursor = 'hand2', date_pattern='dd-mm-Y')
+        self.svCalendario.set("01-10-2023")  # Establecer una fecha predeterminada en formato "dd-mm-yyyy"
+        
+        self.calendar = tc.Calendar(self.topCalendario, selectmode='day', locale='es_US', bg='#777777', fg='#FFFFFF', headersbackground='#B6DDFE', textvariable=self.svCalendario, cursor='hand2', date_pattern='dd-mm-Y')
         self.calendar.pack(pady=22)
-        self.calendar.grid(row=1, column = 0)
+        self.calendar.grid(row=1, column=0)
 
-        #TRACE ENVIAR FECHA
-        self.svCalendario.trace('w',self.enviarFecha)
+        # TRACE ENVIAR FECHA
+        self.svCalendario.trace_add('write', self.enviarFecha)
 
     def enviarFecha(self, *args):
-        self.svFechaCita.set('' + self.svCalendario.get())
-        if len(self.calendar.get_date()) > 1:
-            self.svCalendario.trace('w', self.calcularEdad)
-
+        fecha_seleccionada = self.svCalendario.get()
+        
+    #Función de Botones para busquedas
     def limpiarBuscador(self):
         self.svBuscarApellido.set('')
-        self.svBuscarDPI.set('')
+        self.svBuscarFechaCita.set('')
         self.tablaPaciente()
 
     def buscarCondicion(self):
-        if len(self.svBuscarDPI.get()) > 0 or len(self.svBuscarApellido.get()) > 0:
-            where = "WHERE 1=1"
-            if (len(self.svBuscarDni.get())) > 0:
-                where = "WHERE dni = " + self.svBuscarDni.get() + "" #WHERE dni = 87878787
-            if (len(self.svBuscarApellido.get())) > 0:
-                where = "WHERE apellidoPaterno LIKE '" + self.svBuscarApellido.get()+"%' AND activo = 1"
-            
-            self.tablaPaciente(where)
-        else:
-            self.tablaPaciente()
+        where = "WHERE activo = 1"
+        if len(self.svBuscarFechaCita.get()) > 0:
+            where += " AND FechaCita = '" + self.svBuscarFechaCita.get() + "'"
+        if len(self.svBuscarApellido.get()) > 0:
+            where += " AND apellido LIKE '" + self.svBuscarApellido.get() + "%'"
+
+        self.tablaPaciente(where)
+
 
     def guardarPaciente(self):
         persona = Persona(
@@ -272,17 +273,17 @@ class Frame(tk.Frame):
         self.tabla.heading('#6',text='Correo')
         self.tabla.heading('#7',text='Telefono')
 
-        self.tabla.column("#0", anchor=W, width=50)
-        self.tabla.column("#1", anchor=W, width=150)
-        self.tabla.column("#2", anchor=W, width=120)
-        self.tabla.column("#3", anchor=W, width=80)
-        self.tabla.column("#4", anchor=W, width=100)
-        self.tabla.column("#5", anchor=W, width=50)
+        self.tabla.column("#0", anchor=W, width=75)
+        self.tabla.column("#1", anchor=W, width=200)
+        self.tabla.column("#2", anchor=W, width=175)
+        self.tabla.column("#3", anchor=W, width=120)
+        self.tabla.column("#4", anchor=W, width=120)
+        self.tabla.column("#5", anchor=W, width=75)
         self.tabla.column("#6", anchor=W, width=250)
-        self.tabla.column("#7", anchor=W, width=82)
+        self.tabla.column("#7", anchor=W, width=120)
 
         for p in self.listaPersona:
-            self.tabla.insert('',0,text=p[0], values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9]), tags=('evenrow',))
+            self.tabla.insert('',0,text=p[0], values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7]), tags=('evenrow',))
 
         self.btnEditarPaciente = tk.Button(self, text='Editar Paciente', command=self.editarPaciente)
         self.btnEditarPaciente.config(width=20,font=('ARIAL',12,'bold'), fg='#DAD5D6', bg='#1E0075', activebackground='#9379E0', cursor='hand2')
@@ -312,7 +313,7 @@ class Frame(tk.Frame):
             self.topHistoriaMedica = Toplevel()
             self.topHistoriaMedica.title('HISTORIAL MEDICO')
             self.topHistoriaMedica.resizable(0,0)
-            self.topHistoriaMedica.iconbitmap('img/clinica.ico')
+            self.topHistoriaMedica.iconbitmap('./app/img/clinica.ico')
             self.topHistoriaMedica.config(bg='#CDD8FF')
 
             self.listaHistoria = listarHistoria(idPersona)
@@ -328,20 +329,19 @@ class Frame(tk.Frame):
             self.tablaHistoria.heading('#1', text='Nombre y Apellidos')
             self.tablaHistoria.heading('#2', text='Fecha y Hora')
             self.tablaHistoria.heading('#3', text='Motivo')
-            self.tablaHistoria.heading('#4', text='Examen Auxiliar')
-            self.tablaHistoria.heading('#5', text='Tratamiento')
-            self.tablaHistoria.heading('#6', text='Detalle')
+            self.tablaHistoria.heading('#4', text='Tratamiento')
+            self.tablaHistoria.heading('#5', text='Detalle')
+
 
             self.tablaHistoria.column('#0', anchor=W, width=50)
             self.tablaHistoria.column('#1', anchor=W, width=150)
             self.tablaHistoria.column('#2', anchor=W, width=100)
             self.tablaHistoria.column('#3', anchor=W, width=120)
-            self.tablaHistoria.column('#4', anchor=W, width=250)
-            self.tablaHistoria.column('#5', anchor=W, width=200)
-            self.tablaHistoria.column('#6', anchor=W, width=450)
+            self.tablaHistoria.column('#4', anchor=W, width=350)
+            self.tablaHistoria.column('#5', anchor=W, width=120)
 
             for p in self.listaHistoria:
-                self.tablaHistoria.insert('',0, text=p[0], values=(p[1],p[2],p[3],p[4],p[5],p[6]))
+                self.tablaHistoria.insert('',0, text=p[0], values=(p[1],p[2],p[3],p[4],p[5]))
 
             self.btnGuardarHistoria = tk.Button(self.topHistoriaMedica, text='Agregar Historia', command=self.topAgregarHistoria)
             self.btnGuardarHistoria.config(width=20, font=('ARIAL', 12, 'bold'), fg='#DAD5D6', bg='#002771', cursor='hand2', activebackground='#7198E0')
@@ -371,7 +371,7 @@ class Frame(tk.Frame):
         self.topAHistoria = Toplevel()
         self.topAHistoria.title('AGREGAR HISTORIA')
         self.topAHistoria.resizable(0,0)
-        self.topAHistoria.iconbitmap('img/clinica.ico')
+        self.topAHistoria.iconbitmap('./app/img/clinica.ico')
         self.topAHistoria.config(bg='#CDD8FF')
         #FRAME 1
         self.frameDatosHistoria = tk.LabelFrame(self.topAHistoria)
@@ -381,15 +381,12 @@ class Frame(tk.Frame):
         #LABELS AGREGAR HISTORIA MEDICA
         self.lblMotivoHistoria = tk.Label(self.frameDatosHistoria, text='Motivo de la Historia Medica', width=30, font=('ARIAL', 15,'bold'), bg='#CDD8FF')
         self.lblMotivoHistoria.grid(row=0, column=0, padx=5, pady=3)
-
-        self.lblExamenAuxiliarHistoria = tk.Label(self.frameDatosHistoria, text='Examen Auxiliar', width=20, font=('ARIAL', 15,'bold'), bg='#CDD8FF')
-        self.lblExamenAuxiliarHistoria.grid(row=2, column=0, padx=5, pady=3)
         
         self.lblTratamientoHistoria = tk.Label(self.frameDatosHistoria, text='Tratamiento', width=20, font=('ARIAL', 15,'bold'), bg='#CDD8FF')
-        self.lblTratamientoHistoria.grid(row=4, column=0, padx=5, pady=3)
+        self.lblTratamientoHistoria.grid(row=2, column=0, padx=5, pady=3)
 
         self.lblDetalleHistoria = tk.Label(self.frameDatosHistoria, text='Detalle de la Historia Medica', width=30, font=('ARIAL', 15,'bold'), bg='#CDD8FF')
-        self.lblDetalleHistoria.grid(row=6, column=0, padx=5, pady=3)
+        self.lblDetalleHistoria.grid(row=4, column=0, padx=5, pady=3)
 
         #ENTRYS AGREGA HISTORIA MEDICA
         self.svMotivoHistoria = tk.StringVar()
@@ -397,20 +394,16 @@ class Frame(tk.Frame):
         self.motivoHistoria.config(width=64, font=('ARIAL', 15))
         self.motivoHistoria.grid(row=1, column=0, padx= 5, pady=3, columnspan=2)
 
-        self.svExamenAuxiliarHistoria = tk.StringVar()
-        self.examenAuxiliarHistoria = tk.Entry(self.frameDatosHistoria, textvariable=self.svExamenAuxiliarHistoria)
-        self.examenAuxiliarHistoria.config(width=64, font=('ARIAL', 15))
-        self.examenAuxiliarHistoria.grid(row=3, column=0, padx= 5, pady=3, columnspan=2)
-
         self.svTratamientoHistoria = tk.StringVar()
         self.tratamientoHistoria = tk.Entry(self.frameDatosHistoria, textvariable=self.svTratamientoHistoria)
         self.tratamientoHistoria.config(width=64, font=('ARIAL', 15))
-        self.tratamientoHistoria.grid(row=5, column=0, padx= 5, pady=3, columnspan=2)
+        self.tratamientoHistoria.grid(row=3, column=0, padx= 5, pady=3, columnspan=2)
 
         self.svDetalleHistoria = tk.StringVar()
         self.detalleHistoria = tk.Entry(self.frameDatosHistoria, textvariable=self.svDetalleHistoria)
         self.detalleHistoria.config(width=64, font=('ARIAL', 15))
-        self.detalleHistoria.grid(row=7, column=0, padx= 5, pady=3, columnspan=2)
+        self.detalleHistoria.grid(row=5, column=0, padx= 5, pady=3, columnspan=2)
+
         #FRAME 2
         self.frameFechaHistoria = tk.LabelFrame(self.topAHistoria)
         self.frameFechaHistoria.config(bg='#CDD8FF')
@@ -442,7 +435,7 @@ class Frame(tk.Frame):
     def agregaHistorialMedico(self):
         try:
             if self.idHistoriaMedica == None:
-                guardarHistoria(self.idPersonaHistoria, self.svFechaHistoria.get(),self.svMotivoHistoria.get(), self.svExamenAuxiliarHistoria.get(), self.svTratamientoHistoria.get(),self.svDetalleHistoria.get())
+                guardarHistoria(self.idPersonaHistoria, self.svFechaHistoria.get(),self.svMotivoHistoria.get(), self.svTratamientoHistoria.get(),self.svDetalleHistoria.get())
             self.topAHistoria.destroy()
             self.topHistoriaMedica.destroy()
             self.idPersona = None
@@ -468,15 +461,16 @@ class Frame(tk.Frame):
             self.idHistoriaMedica = self.tablaHistoria.item(self.tablaHistoria.selection())['text']
             self.fechaHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][1]
             self.motivoHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][2]
-            self.exaMenAuxliarHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][3]
-            self.tratamientoHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][4]
-            self.detalleHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][5]
+            self.tratamientoHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][3]
+            self.detalleHistoriaEditar = self.tablaHistoria.item(self.tablaHistoria.selection())['values'][4]
 
             self.topEditarHistoria = Toplevel()
             self.topEditarHistoria.title('EDITAR HISTORIA MEDICA')
             self.topEditarHistoria.resizable(0,0)
-            self.topEditarHistoria.iconbitmap('img/clinica.ico')
+            self.topEditarHistoria.iconbitmap('./app/img/clinica.ico')
             self.topEditarHistoria.config(bg='#CDD8FF')
+
+            # {[()]}
 
             #FRAME EDITAR DATOS HISTORIA
             self.frameEditarHistoria = tk.LabelFrame(self.topEditarHistoria)
@@ -581,24 +575,20 @@ class Frame(tk.Frame):
         try:
             self.idPersona = self.tabla.item(self.tabla.selection())['text'] #Trae el ID
             self.nombrePaciente = self.tabla.item(self.tabla.selection())['values'][0]
-            self.apellidoPaternoPaciente = self.tabla.item(self.tabla.selection())['values'][1]
-            self.apellidoMaternoPaciente = self.tabla.item(self.tabla.selection())['values'][2]
-            self.dniPaciente = self.tabla.item(self.tabla.selection())['values'][3]
-            self.fechaNacimientoPaciente = self.tabla.item(self.tabla.selection())['values'][4]
-            self.edadPaciente = self.tabla.item(self.tabla.selection())['values'][5]
-            self.antecedentesPaciente = self.tabla.item(self.tabla.selection())['values'][6]
-            self.correoPaciente = self.tabla.item(self.tabla.selection())['values'][7]
-            self.telefonoPaciente = self.tabla.item(self.tabla.selection())['values'][8]
+            self.apellidoPaciente = self.tabla.item(self.tabla.selection())['values'][1]
+            self.dpiPaciente = self.tabla.item(self.tabla.selection())['values'][2]
+            self.fechaCitaPaciente = self.tabla.item(self.tabla.selection())['values'][3]
+            self.edadPaciente = self.tabla.item(self.tabla.selection())['values'][4]
+            self.correoPaciente = self.tabla.item(self.tabla.selection())['values'][5]
+            self.telefonoPaciente = self.tabla.item(self.tabla.selection())['values'][6]
 
             self.habilitar()
 
             self.entryNombre.insert(0, self.nombrePaciente)
-            self.entryApePaterno.insert(0, self.apellidoPaternoPaciente)
-            self.entryApeMaterno.insert(0, self.apellidoMaternoPaciente)
-            self.entryDni.insert(0, self.dniPaciente)
-            self.entryFecNacimiento.insert(0, self.fechaNacimientoPaciente)
+            self.entryApellido.insert(0, self.apellidoPaciente)
+            self.entryDPI.insert(0, self.dpiPaciente)
+            self.entryFechaCita.insert(0, self.fechaCitaPaciente)
             self.entryEdad.insert(0,self.edadPaciente)
-            self.entryAntecedentes.insert(0,self.antecedentesPaciente)
             self.entryCorreo.insert(0,self.correoPaciente)
             self.entryTelefono.insert(0,self.telefonoPaciente)
         except:
