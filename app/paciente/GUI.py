@@ -148,7 +148,6 @@ class Frame(tk.Frame):
         self.btnCalendario.grid(column=3,row=4, padx=10, pady=5, columnspan=1)
         
 # Necesita Correcciones
-        self.svFechaCita = StringVar()
 
     def vistaCalendario(self):
         self.topCalendario = Toplevel()
