@@ -162,7 +162,7 @@ class Frame(tk.Frame):
 
     def vistaCalendario(self):
         self.topCalendario = Toplevel()
-        self.topCalendario.title("FECHA CITA")
+        self.topCalendario.title("Fecha Cita")
         self.topCalendario.resizable(0, 0)
         self.topCalendario.iconbitmap('./app/img/clinica.ico')
         self.topCalendario.config(bg='#CDD8FF')
@@ -329,7 +329,7 @@ class Frame(tk.Frame):
                 idPersona = self.idPersona
             
             self.topHistoriaMedica = Toplevel()
-            self.topHistoriaMedica.title('HISTORIAL MEDICO')
+            self.topHistoriaMedica.title('Historial Médico')
             self.topHistoriaMedica.resizable(0,0)
             self.topHistoriaMedica.iconbitmap('./app/img/clinica.ico')
             self.topHistoriaMedica.config(bg='#CDD8FF')

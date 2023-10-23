@@ -4,7 +4,7 @@ from paciente.GUI import Frame
 
 def main():
     root = tk.Tk()
-    root.title('App Citas Médicas')
+    root.title('App Citas Medicas')
     root.resizable(0, 0)
     root.iconbitmap('./app/img/clinica.ico')
     frame = Frame(root)

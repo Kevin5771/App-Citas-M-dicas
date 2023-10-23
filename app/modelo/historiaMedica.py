@@ -5,18 +5,20 @@ from tkinter import messagebox
 def listarHistoria(idPersona):
     conexion = ConexionDB()
     listaHistoria = []
-    sql = f'SELECT h.idHistoria, p.nombre || " " || p.apellido|| " " || AS Apellidos, h.fecha, h.motivo, h.tratamiento, h.detalle FROM historia h INNER JOIN Persona p ON p.idPersona = h.idPersona WHERE p.idPersona = {idPersona}'
+    sql = f'SELECT h.idHistoria, P.nombre || " " || P.apellido, h.fecha, h.motivo, h.tratamiento, h.detalle FROM historia h INNER JOIN PERSONA P ON P.idPersona = h.idPersona WHERE P.idPersona = {idPersona}'
 
     try:
         conexion.cursor.execute(sql)
         listaHistoria = conexion.cursor.fetchall()
         conexion.cerrarConexion()
-    except:
+
+    except Exception as e:
         title = 'LISTAR HISTORIA'
-        mensaje = 'Error al listar historia medica'
+        mensaje = f'Error al listar historia medica: {str(e)}'
         messagebox.showerror(title, mensaje)
 
     return listaHistoria
+
 
 def guardarHistoria(idPersona, fechaHistoria, motivo, tratamiento, detalle):
     conexion = ConexionDB()
@@ -50,7 +52,7 @@ def eliminarHistoria(idHistoriaMedica):
 
 def editarHistoria(fechaHistoria, motivo, tratamiento, detalle, idHistoriaMedica):
     conexion = ConexionDB()
-    sql = f"""UPDATE historia SET fechaHistoria = '{fechaHistoria}', motivo = '{motivo}', tratamiento = '{tratamiento}', detalle = '{detalle}' WHERE idHistoria = {idHistoriaMedica}"""
+    sql = f"""UPDATE historia SET fecha = '{fechaHistoria}', motivo = '{motivo}', tratamiento = '{tratamiento}', detalle = '{detalle}' WHERE idHistoria = {idHistoriaMedica}"""
     try:
         conexion.cursor.execute(sql)
         conexion.cerrarConexion()
@@ -72,4 +74,4 @@ class historiaMedica:
         self.detalle = detalle
     
     def __str__(self):
-        return f'historiaMedica[{self.idPersona},{self.fechaHistoria},{self.motivo}, {self.tratamiento}, {self.detalle}]'
+        return f'historia[{self.idPersona},{self.fechaHistoria},{self.motivo}, {self.tratamiento}, {self.detalle}]'
