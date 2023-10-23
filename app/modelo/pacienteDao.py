@@ -4,9 +4,9 @@ from tkinter import messagebox
 
 def editarDatoPaciente(persona, idPersona):
     conexion = ConexionDB()
-    sql = f"""UPDATE Persona SET nombre = '{persona.nombre}', apellido = '{persona.apellido}',
+    sql = f"""UPDATE PERSONA SET nombre = '{persona.nombre}', apellido = '{persona.apellido}',
             dpi = '{persona.dpi}', fechaCita = '{persona.fechaCita}', edad = {persona.edad}, 
-            correo = '{persona.cOrreo}', telefono = '{persona.telefono}', activo = 1 WHERE idPersona = {idPersona}"""
+            correo = '{persona.cOrreo}', telefono = '{persona.telefono}', motivo = '{persona.motivo}', activo = 1 WHERE idPersona = {idPersona}"""
     try:
         conexion.cursor.execute(sql)
         conexion.cerrarConexion()
@@ -21,10 +21,10 @@ def editarDatoPaciente(persona, idPersona):
 def guardarDatoPaciente(persona):
     conexion = ConexionDB()
     sql = f"""INSERT INTO Persona (nombre, apellido, dpi, fechaCita, 
-    edad, cOrreo, telefono, activo) VALUES
+    edad, cOrreo, telefono,motivo,activo) VALUES
             ('{persona.nombre}','{persona.apellido}','{persona.dpi}',
             '{persona.fechaCita}',{persona.edad},
-            '{persona.cOrreo}','{persona.telefono}',1)"""
+            '{persona.cOrreo}','{persona.telefono}','{persona.motivo}',1)"""
     try:
         conexion.cursor.execute(sql)
         conexion.cerrarConexion()
@@ -85,7 +85,7 @@ def eliminarPaciente(idPersona):
 
 
 class Persona:
-    def __init__(self, nombre, apellido, dpi,fechaCita, edad, cOrreo, telefono):
+    def __init__(self, nombre, apellido, dpi,fechaCita, edad, cOrreo, telefono,motivo):
         self.idPersona = None
         self.nombre = nombre
         self.apellido= apellido
@@ -94,6 +94,7 @@ class Persona:
         self.edad = edad
         self.cOrreo = cOrreo
         self.telefono = telefono
+        self.motivo = motivo
 
     def __str__(self):
-        return f'Persona[{self.nombre},{self.apellido}, {self.dpi},{self.fechaCita},{self.edad},{self.cOrreo},{self.telefono}]'
+        return f'Persona[{self.nombre},{self.apellido}, {self.dpi},{self.fechaCita},{self.edad},{self.cOrreo},{self.telefono},{self.motivo}]'

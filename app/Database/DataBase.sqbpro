@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/kevin/Desktop/PROYECTOS/app/App-Citas-M-dicas/app/Database/DataBase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="2173"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,7:mainPERSONA"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE PERSONA( 
+	idPersona INTEGER PRIMARY KEY AUTOINCREMENT, 
+	nombre VARCHAR(50), 
+	apellido VARCHAR (50), 
+	dpi INTEGER UNIQUE, 
+	fechaCita VARCHAR (50), 
+	edad VARCHAR(10), 
+	cOrreo VARCHAR(15),
+	telefono VARCHAR(40),
+	motivo VARCHAR(255),
+	activo INTEGER );
+	
+CREATE TABLE HISTORIA( 
+	idHistoria INTEGER PRIMARY KEY AUTOINCREMENT, 
+	idPersona INTEGER, 
+	motivo VARHAR(50), 
+	tratamiento VARCHAR(50), 
+	detalle VARCHAR(100), 
+	FOREIGN KEY (idPersona)REFERENCES PERSONA(idPersona) );
+	</sql><current_tab id="0"/></tab_sql></sqlb_project>
