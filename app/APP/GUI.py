@@ -106,17 +106,17 @@ class Frame(tk.Frame):
 
         #BUTTONS
         self.btnNuevo = tk.Button(self, text='Nuevo', command=self.habilitar)
-        self.btnNuevo.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
+        self.btnNuevo.config(width=20, font=('ARIAL',13,'bold'), fg='#F5F1F6', 
                                 bg='#5718de', cursor='hand2',activebackground='#880bdb')
         self.btnNuevo.grid(column=0,row=9, padx=10, pady=5)
 
         self.btnGuardar = tk.Button(self, text='Guardar', command=self.guardarPaciente)
-        self.btnGuardar.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
+        self.btnGuardar.config(width=20, font=('ARIAL',13,'bold'), fg='#F5F1F6', 
                                 bg='#000000', cursor='hand2',activebackground='#5F5F5F')
         self.btnGuardar.grid(column=1,row=9, padx=10, pady=5)
 
         self.btnCancelar = tk.Button(self, text='Cancelar',command=self.deshabilitar)
-        self.btnCancelar.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
+        self.btnCancelar.config(width=20, font=('ARIAL',13,'bold'), fg='#F5F1F6', 
                                 bg='#B00000', cursor='hand2',activebackground='#D27C7C')
         self.btnCancelar.grid(column=2,row=9, padx=10, pady=5)
 
@@ -146,12 +146,12 @@ class Frame(tk.Frame):
 
         # BUTTON BUSCADOR
         self.btnBuscarCondicion = tk.Button(self, text='Buscar', command=self.buscarCondicion)
-        self.btnBuscarCondicion.config(width=20, font=('Arial', 13, 'bold'), fg='#DAD5D6',
+        self.btnBuscarCondicion.config(width=20, font=('Arial', 13, 'bold'), fg='#F5F1F6',
                                         bg='#00396F', cursor='hand2', activebackground='#4352c4')
         self.btnBuscarCondicion.grid(column=3, row=4, padx=10, pady=5, columnspan=1)
 
         self.btnLimpiarBuscador = tk.Button(self, text='Limpiar', command=self.limpiarBuscador)
-        self.btnLimpiarBuscador.config(width=20, font=('Arial', 13, 'bold'), fg='#DAD5D6',
+        self.btnLimpiarBuscador.config(width=20, font=('Arial', 13, 'bold'), fg='#F5F1F6',
                                     bg='#120061', cursor='hand2', activebackground='#7C6DC1')
         self.btnLimpiarBuscador.grid(column=4, row=4, padx=10, pady=5, columnspan=1)
 
@@ -167,7 +167,7 @@ class Frame(tk.Frame):
         self.topCalendario = Toplevel()
         self.topCalendario.title("Fecha Cita")
         self.topCalendario.resizable(0, 0)
-        self.topCalendario.iconbitmap('./app/img/medicine.ico')
+        self.topCalendario.iconbitmap('./app/img/healty.ico')
         self.topCalendario.config(bg='#CDD8FF')
 
         self.svCalendario = StringVar()
@@ -269,47 +269,54 @@ class Frame(tk.Frame):
             self.listaPersona = listarCondicion(where)
         else:
             self.listaPersona = listar()
-            #self.listaPersona.reverse()
+            self.listaPersona.reverse()
 
         self.tabla = ttk.Treeview(self, column=('Nombre', 'Apellido','Dpi','FCita','Edad','Correo','Telefono', 'Motivo'))
-        self.tabla.grid(column=0, row=10, columnspan=10, sticky='nse')
+        self.tabla.grid(column=0, row=10, columnspan=10, sticky='nsew', padx=10, pady=10)
         
         self.scroll = ttk.Scrollbar(self, orient='vertical', command=self.tabla.yview)
         self.scroll.grid(row=10, column=11, sticky='nse')
 
         self.tabla.configure(yscrollcommand=self.scroll.set)
 
-        self.tabla.tag_configure('evenrow', background='#C5EAFE')
+        self.tabla.tag_configure("Treeview", background='#C5EAFE', foreground="black")
 
-        self.tabla.heading('#0',text='ID')
-        self.tabla.heading('#1',text='Nombre')
-        self.tabla.heading('#2',text='Apellido')
-        self.tabla.heading('#3',text='DPI')
-        self.tabla.heading('#4',text='F. Cita')
-        self.tabla.heading('#5',text='Edad')
-        self.tabla.heading('#6',text='Correo')
-        self.tabla.heading('#7',text='Telefono')
-        self.tabla.heading('#8',text='Motivo')
+        # Configurar la barra de desplazamiento en la tabla
+        self.tabla.configure(yscrollcommand=self.scroll.set)
 
-        self.tabla.column("#0", anchor=W, width=75)
-        self.tabla.column("#1", anchor=W, width=150)
-        self.tabla.column("#2", anchor=W, width=150)
-        self.tabla.column("#3", anchor=W, width=120)
-        self.tabla.column("#4", anchor=W, width=120)
-        self.tabla.column("#5", anchor=W, width=80)
-        self.tabla.column("#6", anchor=W, width=200)
-        self.tabla.column("#7", anchor=W, width=120)
-        self.tabla.column("#8", anchor=W, width=225)
+        # Establecer etiquetas de las columnas
+        self.tabla.heading('#0', text='ID', anchor='w')
+        self.tabla.heading('#1', text='Nombre', anchor='w')
+        self.tabla.heading('#2', text='Apellido', anchor='w')
+        self.tabla.heading('#3', text='DPI', anchor='w')
+        self.tabla.heading('#4', text='F. Cita', anchor='w')
+        self.tabla.heading('#5', text='Edad', anchor='w')
+        self.tabla.heading('#6', text='Correo', anchor='w')
+        self.tabla.heading('#7', text='Telefono', anchor='w')
+        self.tabla.heading('#8', text='Motivo', anchor='w')
+
+        # Configurar el ancho de las columnas
+        self.tabla.column("#0", anchor='w', width=75)
+        self.tabla.column("#1", anchor='w', width=150)
+        self.tabla.column("#2", anchor='w', width=150)
+        self.tabla.column("#3", anchor='w', width=120)
+        self.tabla.column("#4", anchor='w', width=120)
+        self.tabla.column("#5", anchor='w', width=80)
+        self.tabla.column("#6", anchor='w', width=200)
+        self.tabla.column("#7", anchor='w', width=120)
+        self.tabla.column("#8", anchor='w', width=225)
+
+
 
         for p in self.listaPersona:
             self.tabla.insert('',0,text=p[0], values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8]), tags=('evenrow',))
 
         self.btnEditarPaciente = tk.Button(self, text='Editar Paciente', command=self.editarPaciente)
-        self.btnEditarPaciente.config(width=20,font=('ARIAL',12,'bold'), fg='#DAD5D6', bg='#1E0075', activebackground='#9379E0', cursor='hand2')
+        self.btnEditarPaciente.config(width=20,font=('ARIAL',12,'bold'), fg='#F5F1F6', bg='#1E0075', activebackground='#9379E0', cursor='hand2')
         self.btnEditarPaciente.grid(row=11, column=0, padx=10, pady=5)
 
         self.btnEliminarPaciente = tk.Button(self, text='Eliminar Paciente', command = self.eliminarDatoPaciente )
-        self.btnEliminarPaciente.config(width=20,font=('ARIAL',12,'bold'), fg='#DAD5D6', bg='#8A0000', activebackground='#D58A8A', cursor='hand2')
+        self.btnEliminarPaciente.config(width=20,font=('ARIAL',12,'bold'), fg='#F5F1F6', bg='#8A0000', activebackground='#D58A8A', cursor='hand2')
         self.btnEliminarPaciente.grid(row=11, column=1, padx=10, pady=5)
 
         self.btnHistorialPaciente = tk.Button(self, text='Historial Paciente', command=self.historiaMedica)
@@ -334,7 +341,7 @@ class Frame(tk.Frame):
             self.topHistoriaMedica = Toplevel()
             self.topHistoriaMedica.title('Historial Médico')
             self.topHistoriaMedica.resizable(0,0)
-            self.topHistoriaMedica.iconbitmap('./app/img/medicine.ico')
+            self.topHistoriaMedica.iconbitmap('./app/img/healty.ico')
             self.topHistoriaMedica.config(bg='#CDD8FF')
 
             self.listaHistoria = listarHistoria(idPersona)
@@ -391,7 +398,7 @@ class Frame(tk.Frame):
         self.topAHistoria = Toplevel()
         self.topAHistoria.title('AGREGAR HISTORIA')
         self.topAHistoria.resizable(0,0)
-        self.topAHistoria.iconbitmap('./app/img/medicine.ico')
+        self.topAHistoria.iconbitmap('./app/img/healty.ico')
         self.topAHistoria.config(bg='#CDD8FF')
         #FRAME 1
         self.frameDatosHistoria = tk.LabelFrame(self.topAHistoria)
@@ -487,7 +494,7 @@ class Frame(tk.Frame):
             self.topEditarHistoria = Toplevel()
             self.topEditarHistoria.title('EDITAR HISTORIA MEDICA')
             self.topEditarHistoria.resizable(0,0)
-            self.topEditarHistoria.iconbitmap('./app/img/clinica.ico')
+            self.topEditarHistoria.iconbitmap('./app/img/healty.ico')
             self.topEditarHistoria.config(bg='#CDD8FF')
 
             #FRAME EDITAR DATOS HISTORIA

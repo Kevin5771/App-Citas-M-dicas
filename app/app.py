@@ -5,8 +5,8 @@ from APP.GUI import Frame
 def main():
     root = tk.Tk()
     root.title('App Citas Medicas')
-    root.resizable(0, 0)
-    root.iconbitmap('./app/img/medicine.ico')
+    root.resizable(0,0)
+    root.iconbitmap('./app/img/healty.ico')
     frame = Frame(root)
     frame.mainloop()
 
