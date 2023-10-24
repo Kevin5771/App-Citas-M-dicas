@@ -17,7 +17,7 @@ class Frame(tk.Frame):
         super().__init__(root, width=1280, height=720)
         self.root = root
         self.pack()
-        self.config(bg='#CDD8FF')
+        self.config(bg='#2D7BF2')
         self.idPersona = None
         self.idPersonaHistoria = None
         self.idHistoriaMedica = None
@@ -30,141 +30,144 @@ class Frame(tk.Frame):
 
         #LABELS
         self.lblNombre = tk.Label(self, text='Nombre: ')
-        self.lblNombre.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblNombre.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblNombre.grid(column=0, row=0, padx=10, pady=5)
 
         self.lblApellido = tk.Label(self, text='Apellido: ')
-        self.lblApellido.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblApellido.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblApellido.grid(column=0,row=1, padx=10, pady=5)
 
         self.lblDpi = tk.Label(self, text='DPI: ')
-        self.lblDpi.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblDpi.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblDpi.grid(column=0,row=2, padx=10, pady=5)
 
-        self.lblFechaCita = tk.Label(self, text='Fecha cita: ')
-        self.lblFechaCita.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblFechaCita = tk.Label(self, text='Fecha Cita: ')
+        self.lblFechaCita.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblFechaCita.grid(column=0,row=3, padx=10, pady=5)
 
         self.lblEdad = tk.Label(self, text='Edad: ')
-        self.lblEdad.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblEdad.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblEdad.grid(column=0,row=4, padx=10, pady=5)
 
         self.lblCorreo = tk.Label(self, text='Correo: ')
-        self.lblCorreo.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblCorreo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblCorreo.grid(column=0,row=5, padx=10, pady=5)
 
-        self.lblTelefono = tk.Label(self, text='Telefono: ')
-        self.lblTelefono.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblTelefono = tk.Label(self, text='Teléfono: ')
+        self.lblTelefono.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblTelefono.grid(column=0,row=6, padx=10, pady=5)  
 
         self.lblMotivo = tk.Label(self, text='Motivo: ')
-        self.lblMotivo.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
+        self.lblMotivo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblMotivo.grid(column=0,row=7, padx=10, pady=5)  
 
 
         #ENTRYS
         self.svNombre = tk.StringVar()
         self.entryNombre = tk.Entry(self, textvariable=self.svNombre)
-        self.entryNombre.config(width=50, font=('ARIAL',15))
+        self.entryNombre.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryNombre.grid(column=1, row=0, padx=10, pady=5, columnspan=2)
 
         self.svApellido= tk.StringVar()
         self.entryApellido= tk.Entry(self, textvariable=self.svApellido)
-        self.entryApellido.config(width=50, font=('ARIAL',15))
+        self.entryApellido.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryApellido.grid(column=1, row=1, padx=10, pady=5, columnspan=2)
 
         self.svDPI = tk.StringVar()
         self.entryDPI = tk.Entry(self, textvariable=self.svDPI)
-        self.entryDPI.config(width=50, font=('ARIAL',15))
+        self.entryDPI.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryDPI.grid(column=1, row=2, padx=10, pady=5, columnspan=2)
 
         self.svFechaCita = tk.StringVar()
         self.entryFechaCita = tk.Entry(self, textvariable=self.svFechaCita)
-        self.entryFechaCita.config(width=50, font=('ARIAL',15))
+        self.entryFechaCita.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryFechaCita.grid(column=1, row=3, padx=10, pady=5, columnspan=2)
 
         self.svEdad = tk.StringVar()
         self.entryEdad = tk.Entry(self, textvariable=self.svEdad)
-        self.entryEdad.config(width=50, font=('ARIAL',15))
+        self.entryEdad.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryEdad.grid(column=1, row=4, padx=10, pady=5, columnspan=2)
 
         self.svCorreo = tk.StringVar()
         self.entryCorreo = tk.Entry(self, textvariable=self.svCorreo)
-        self.entryCorreo.config(width=50, font=('ARIAL',15))
+        self.entryCorreo.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryCorreo.grid(column=1, row=5, padx=10, pady=5, columnspan=2)
 
         self.svTelefono = tk.StringVar()
         self.entryTelefono = tk.Entry(self, textvariable=self.svTelefono)
-        self.entryTelefono.config(width=50, font=('ARIAL',15))
+        self.entryTelefono.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryTelefono.grid(column=1, row=6, padx=10, pady=5, columnspan=2)
 
         self.svMotivoCita = tk.StringVar()
         self.entryMotivo = tk.Entry(self, textvariable=self.svMotivoCita)
-        self.entryMotivo.config(width=50, font=('ARIAL',15))
+        self.entryMotivo.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryMotivo.grid(column=1, row=7, padx=10, pady=5, columnspan=2)
 
 
         #BUTTONS
         self.btnNuevo = tk.Button(self, text='Nuevo', command=self.habilitar)
-        self.btnNuevo.config(width=20, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
+        self.btnNuevo.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
                                 bg='#5718de', cursor='hand2',activebackground='#880bdb')
         self.btnNuevo.grid(column=0,row=9, padx=10, pady=5)
 
         self.btnGuardar = tk.Button(self, text='Guardar', command=self.guardarPaciente)
-        self.btnGuardar.config(width=20, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
+        self.btnGuardar.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
                                 bg='#000000', cursor='hand2',activebackground='#5F5F5F')
         self.btnGuardar.grid(column=1,row=9, padx=10, pady=5)
 
         self.btnCancelar = tk.Button(self, text='Cancelar',command=self.deshabilitar)
-        self.btnCancelar.config(width=20, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
+        self.btnCancelar.config(width=20, font=('ARIAL',13,'bold'), fg='#DAD5D6', 
                                 bg='#B00000', cursor='hand2',activebackground='#D27C7C')
         self.btnCancelar.grid(column=2,row=9, padx=10, pady=5)
 
-        #BUSCADOR
-        #LABEL BUSCADOR
+        #BUSCADORES
+        # LABEL BUSCADOR
+        self.lblBuscarTitle = tk.Label(self, text='BUSCADOR', font=('Arial', 15, 'bold'), bg='#2D7BF2')
+        self.lblBuscarTitle.grid(column=3, row=1, columnspan=2, padx=10, pady=5)
+
         self.lblBuscarFechaCita = tk.Label(self, text='Buscar Fechas: ')
-        self.lblBuscarFechaCita.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
-        self.lblBuscarFechaCita.grid(column=3, row=1, padx=10, pady=5)
+        self.lblBuscarFechaCita.config(font=('Arial', 15, 'bold'), bg='#2D7BF2')
+        self.lblBuscarFechaCita.grid(column=3, row=2, padx=10, pady=5, sticky='w')
 
         self.lblBuscarApellido = tk.Label(self, text='Buscar Apellido: ')
-        self.lblBuscarApellido.config(font=('ARIAl',15,'bold'), bg='#CDD8FF')
-        self.lblBuscarApellido.grid(column=3, row=2, padx=10, pady=5)
+        self.lblBuscarApellido.config(font=('Arial', 15, 'bold'), bg='#2D7BF2')
+        self.lblBuscarApellido.grid(column=3, row=3, padx=10, pady=5, sticky='w')
 
-        #ENTRYS BUSCADOR
+        # ENTRYS BUSCADOR
         self.svBuscarFechaCita = tk.StringVar()
         self.entryBuscarFechaCita = tk.Entry(self, textvariable=self.svBuscarFechaCita)
-        self.entryBuscarFechaCita.config(width=20, font=('ARIAL',15))
-        self.entryBuscarFechaCita.grid(column=4, row=1, padx=10, pady=5, columnspan=2)
+        self.entryBuscarFechaCita.config(width=20, font=('TIMES NEW ROMAN', 15))
+        self.entryBuscarFechaCita.grid(column=4, row=2, padx=10, pady=5, columnspan=2)
 
         self.svBuscarApellido = tk.StringVar()
         self.entryBuscarApellido = tk.Entry(self, textvariable=self.svBuscarApellido)
-        self.entryBuscarApellido.config(width=20, font=('ARIAL',15))
-        self.entryBuscarApellido.grid(column=4, row=2, padx=10, pady=5, columnspan=2)
+        self.entryBuscarApellido.config(width=20, font=('TIMES NEW ROMAN', 15))
+        self.entryBuscarApellido.grid(column=4, row=3, padx=10, pady=5, columnspan=2)
 
-        #BUTTON BUSCADOR
-        self.btnBuscarCondicion = tk.Button(self, text='Buscar', command = self.buscarCondicion)
-        self.btnBuscarCondicion.config(width=20, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
-                                bg='#00396F', cursor='hand2',activebackground='#4352c4')
-        self.btnBuscarCondicion.grid(column=3,row=3, padx=10, pady=5, columnspan=1)
+        # BUTTON BUSCADOR
+        self.btnBuscarCondicion = tk.Button(self, text='Buscar', command=self.buscarCondicion)
+        self.btnBuscarCondicion.config(width=20, font=('Arial', 13, 'bold'), fg='#DAD5D6',
+                                        bg='#00396F', cursor='hand2', activebackground='#4352c4')
+        self.btnBuscarCondicion.grid(column=3, row=4, padx=10, pady=5, columnspan=1)
 
-        self.btnLimpiarBuscador = tk.Button(self, text='Limpiar', command = self.limpiarBuscador)
-        self.btnLimpiarBuscador.config(width=20, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
-                                bg='#120061', cursor='hand2',activebackground='#7C6DC1')
-        self.btnLimpiarBuscador.grid(column=4,row=3, padx=10, pady=5, columnspan=1)
-# 
-        #BUTTON CALENDARIO
-        self.btnCalendario = tk.Button(self, text='Calendario', command = self.vistaCalendario)
-        self.btnCalendario.config(width=12, font=('ARIAL',12,'bold'), fg='#DAD5D6', 
-                                bg='#53005B', cursor='hand2',activebackground='#C774CF')
-        self.btnCalendario.grid(column=3,row=5, padx=10, pady=5, columnspan=1)
-        
+        self.btnLimpiarBuscador = tk.Button(self, text='Limpiar', command=self.limpiarBuscador)
+        self.btnLimpiarBuscador.config(width=20, font=('Arial', 13, 'bold'), fg='#DAD5D6',
+                                    bg='#120061', cursor='hand2', activebackground='#7C6DC1')
+        self.btnLimpiarBuscador.grid(column=4, row=4, padx=10, pady=5, columnspan=1)
+
+        # BUTTON CALENDARIO
+        self.btnCalendario = tk.Button(self, text='Calendario', command=self.vistaCalendario)
+        self.btnCalendario.config(width=12, font=('Arial', 13, 'bold'), fg='#DAD5D6',
+                                bg='#53005B', cursor='hand2', activebackground='#C774CF')
+        self.btnCalendario.grid(column=3, row=6, padx=10, pady=5, columnspan=1)
+            
 # Necesita Correcciones
 
     def vistaCalendario(self):
         self.topCalendario = Toplevel()
         self.topCalendario.title("Fecha Cita")
         self.topCalendario.resizable(0, 0)
-        self.topCalendario.iconbitmap('./app/img/clinica.ico')
+        self.topCalendario.iconbitmap('./app/img/medicine.ico')
         self.topCalendario.config(bg='#CDD8FF')
 
         self.svCalendario = StringVar()
@@ -294,9 +297,9 @@ class Frame(tk.Frame):
         self.tabla.column("#3", anchor=W, width=120)
         self.tabla.column("#4", anchor=W, width=120)
         self.tabla.column("#5", anchor=W, width=80)
-        self.tabla.column("#6", anchor=W, width=210)
+        self.tabla.column("#6", anchor=W, width=200)
         self.tabla.column("#7", anchor=W, width=120)
-        self.tabla.column("#8", anchor=W, width=235)
+        self.tabla.column("#8", anchor=W, width=225)
 
         for p in self.listaPersona:
             self.tabla.insert('',0,text=p[0], values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8]), tags=('evenrow',))
@@ -331,7 +334,7 @@ class Frame(tk.Frame):
             self.topHistoriaMedica = Toplevel()
             self.topHistoriaMedica.title('Historial Médico')
             self.topHistoriaMedica.resizable(0,0)
-            self.topHistoriaMedica.iconbitmap('./app/img/clinica.ico')
+            self.topHistoriaMedica.iconbitmap('./app/img/medicine.ico')
             self.topHistoriaMedica.config(bg='#CDD8FF')
 
             self.listaHistoria = listarHistoria(idPersona)
@@ -388,7 +391,7 @@ class Frame(tk.Frame):
         self.topAHistoria = Toplevel()
         self.topAHistoria.title('AGREGAR HISTORIA')
         self.topAHistoria.resizable(0,0)
-        self.topAHistoria.iconbitmap('./app/img/clinica.ico')
+        self.topAHistoria.iconbitmap('./app/img/medicine.ico')
         self.topAHistoria.config(bg='#CDD8FF')
         #FRAME 1
         self.frameDatosHistoria = tk.LabelFrame(self.topAHistoria)
