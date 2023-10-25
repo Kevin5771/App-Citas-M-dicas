@@ -22,89 +22,85 @@ class Frame(tk.Frame):
         self.idPersonaHistoria = None
         self.idHistoriaMedica = None
         self.idHistoriaMedicaEditar = None
-        self.camposPaciente()
+        self.entradaDatos()
         self.deshabilitar()
         self.tablaPaciente()
 
-    def camposPaciente(self):
-
-        #LABELS
+    def entradaDatos(self):
+        #LABELS AND ENTRYS
         self.lblNombre = tk.Label(self, text='Nombre: ')
         self.lblNombre.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
         self.lblNombre.grid(column=0, row=0, padx=10, pady=5)
 
-        self.lblApellido = tk.Label(self, text='Apellido: ')
-        self.lblApellido.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblApellido.grid(column=0,row=1, padx=10, pady=5)
-
-        self.lblDpi = tk.Label(self, text='DPI: ')
-        self.lblDpi.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblDpi.grid(column=0,row=2, padx=10, pady=5)
-
-        self.lblFechaCita = tk.Label(self, text='Fecha Cita: ')
-        self.lblFechaCita.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblFechaCita.grid(column=0,row=3, padx=10, pady=5)
-
-        self.lblEdad = tk.Label(self, text='Edad: ')
-        self.lblEdad.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblEdad.grid(column=0,row=4, padx=10, pady=5)
-
-        self.lblCorreo = tk.Label(self, text='Correo: ')
-        self.lblCorreo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblCorreo.grid(column=0,row=5, padx=10, pady=5)
-
-        self.lblTelefono = tk.Label(self, text='Teléfono: ')
-        self.lblTelefono.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblTelefono.grid(column=0,row=6, padx=10, pady=5)  
-
-        self.lblMotivo = tk.Label(self, text='Motivo: ')
-        self.lblMotivo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
-        self.lblMotivo.grid(column=0,row=7, padx=10, pady=5)  
-
-
-        #ENTRYS
         self.svNombre = tk.StringVar()
         self.entryNombre = tk.Entry(self, textvariable=self.svNombre)
         self.entryNombre.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryNombre.grid(column=1, row=0, padx=10, pady=5, columnspan=2)
+
+        self.lblApellido = tk.Label(self, text='Apellido: ')
+        self.lblApellido.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblApellido.grid(column=0,row=1, padx=10, pady=5)
 
         self.svApellido= tk.StringVar()
         self.entryApellido= tk.Entry(self, textvariable=self.svApellido)
         self.entryApellido.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryApellido.grid(column=1, row=1, padx=10, pady=5, columnspan=2)
 
+        self.lblDpi = tk.Label(self, text='DPI: ')
+        self.lblDpi.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblDpi.grid(column=0,row=2, padx=10, pady=5)
+
         self.svDPI = tk.StringVar()
         self.entryDPI = tk.Entry(self, textvariable=self.svDPI)
         self.entryDPI.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryDPI.grid(column=1, row=2, padx=10, pady=5, columnspan=2)
+
+        self.lblFechaCita = tk.Label(self, text='Fecha Cita: ')
+        self.lblFechaCita.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblFechaCita.grid(column=0,row=3, padx=10, pady=5)
 
         self.svFechaCita = tk.StringVar()
         self.entryFechaCita = tk.Entry(self, textvariable=self.svFechaCita)
         self.entryFechaCita.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryFechaCita.grid(column=1, row=3, padx=10, pady=5, columnspan=2)
 
+        self.lblEdad = tk.Label(self, text='Edad: ')
+        self.lblEdad.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblEdad.grid(column=0,row=4, padx=10, pady=5)
+
         self.svEdad = tk.StringVar()
         self.entryEdad = tk.Entry(self, textvariable=self.svEdad)
         self.entryEdad.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryEdad.grid(column=1, row=4, padx=10, pady=5, columnspan=2)
+
+        self.lblCorreo = tk.Label(self, text='Correo: ')
+        self.lblCorreo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblCorreo.grid(column=0,row=5, padx=10, pady=5)
 
         self.svCorreo = tk.StringVar()
         self.entryCorreo = tk.Entry(self, textvariable=self.svCorreo)
         self.entryCorreo.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryCorreo.grid(column=1, row=5, padx=10, pady=5, columnspan=2)
 
+        self.lblTelefono = tk.Label(self, text='Teléfono: ')
+        self.lblTelefono.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblTelefono.grid(column=0,row=6, padx=10, pady=5)  
+
         self.svTelefono = tk.StringVar()
         self.entryTelefono = tk.Entry(self, textvariable=self.svTelefono)
         self.entryTelefono.config(width=50, font=('TIMES NEW ROMAN',15))
         self.entryTelefono.grid(column=1, row=6, padx=10, pady=5, columnspan=2)
 
+        self.lblMotivo = tk.Label(self, text='Motivo: ')
+        self.lblMotivo.config(font=('ARIAl',15,'bold'), bg='#2D7BF2')
+        self.lblMotivo.grid(column=0,row=7, padx=10, pady=5)
+
         self.svMotivoCita = tk.StringVar()
         self.entryMotivo = tk.Entry(self, textvariable=self.svMotivoCita)
         self.entryMotivo.config(width=50, font=('TIMES NEW ROMAN',15))
-        self.entryMotivo.grid(column=1, row=7, padx=10, pady=5, columnspan=2)
+        self.entryMotivo.grid(column=1, row=7, padx=10, pady=5, columnspan=2) 
 
-
-        #BUTTONS
+     #BUTTONS
         self.btnNuevo = tk.Button(self, text='Nuevo', command=self.habilitar)
         self.btnNuevo.config(width=20, font=('ARIAL',13,'bold'), fg='#F5F1F6', 
                                 bg='#5718de', cursor='hand2',activebackground='#880bdb')
@@ -121,7 +117,7 @@ class Frame(tk.Frame):
         self.btnCancelar.grid(column=2,row=9, padx=10, pady=5)
 
         #BUSCADORES
-        # LABEL BUSCADOR
+        # LABEL BUSCADOR AND ENTRY
         self.lblBuscarTitle = tk.Label(self, text='BUSCADOR', font=('Arial', 15, 'bold'), bg='#2D7BF2')
         self.lblBuscarTitle.grid(column=3, row=1, columnspan=2, padx=10, pady=5)
 
@@ -129,15 +125,14 @@ class Frame(tk.Frame):
         self.lblBuscarFechaCita.config(font=('Arial', 15, 'bold'), bg='#2D7BF2')
         self.lblBuscarFechaCita.grid(column=3, row=2, padx=10, pady=5, sticky='w')
 
-        self.lblBuscarApellido = tk.Label(self, text='Buscar Apellido: ')
-        self.lblBuscarApellido.config(font=('Arial', 15, 'bold'), bg='#2D7BF2')
-        self.lblBuscarApellido.grid(column=3, row=3, padx=10, pady=5, sticky='w')
-
-        # ENTRYS BUSCADOR
         self.svBuscarFechaCita = tk.StringVar()
         self.entryBuscarFechaCita = tk.Entry(self, textvariable=self.svBuscarFechaCita)
         self.entryBuscarFechaCita.config(width=20, font=('TIMES NEW ROMAN', 15))
         self.entryBuscarFechaCita.grid(column=4, row=2, padx=10, pady=5, columnspan=2)
+
+        self.lblBuscarApellido = tk.Label(self, text='Buscar Apellido: ')
+        self.lblBuscarApellido.config(font=('Arial', 15, 'bold'), bg='#2D7BF2')
+        self.lblBuscarApellido.grid(column=3, row=3, padx=10, pady=5, sticky='w')
 
         self.svBuscarApellido = tk.StringVar()
         self.entryBuscarApellido = tk.Entry(self, textvariable=self.svBuscarApellido)
@@ -161,7 +156,6 @@ class Frame(tk.Frame):
                                 bg='#53005B', cursor='hand2', activebackground='#C774CF')
         self.btnCalendario.grid(column=3, row=6, padx=10, pady=5, columnspan=1)
             
-# Necesita Correcciones
 
     def vistaCalendario(self):
         self.topCalendario = Toplevel()
@@ -176,12 +170,6 @@ class Frame(tk.Frame):
         self.calendar = tc.Calendar(self.topCalendario, selectmode='day', locale='es_US', bg='#777777', fg='#FFFFFF', headersbackground='#B6DDFE', textvariable=self.svCalendario, cursor='hand2', date_pattern='dd-mm-Y')
         self.calendar.pack(pady=22)
         self.calendar.grid(row=1, column=0)
-
-        # TRACE ENVIAR FECHA
-        self.svCalendario.trace_add('write', self.enviarFecha)
-
-    def enviarFecha(self, *args):
-        fecha_seleccionada = self.svCalendario.get()
         
     #Función de Botones para busquedas
     def limpiarBuscador(self):
